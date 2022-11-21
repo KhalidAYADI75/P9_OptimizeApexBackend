@@ -7,11 +7,7 @@ trigger UpdateAccountCA on Order (after update) {
     for (Account acc : accList) {       
         for (Order odr : trigger.New) {
         	if (odr.AccountId == acc.Id) {
-                for (Order oldOrder : trigger.Old) {
-                    if (oldOrder.AccountId == odr.AccountId) {
-                        acc.Chiffre_d_affaire__c = acc.Chiffre_d_affaire__c + odr.TotalAmount - oldOrder.TotalAmount;
-                    }
-                }
+                acc.Chiffre_d_affaire__c = acc.Chiffre_d_affaire__c + odr.TotalAmount;
             }
         }
     }
