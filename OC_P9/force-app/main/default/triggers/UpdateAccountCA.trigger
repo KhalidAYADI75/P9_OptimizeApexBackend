@@ -1,12 +1,19 @@
-trigger UpdateAccountCA on Order (after update) {
-	
-    set<Id> setAccountIds = new set<Id>();
-    
+trigger UpdateAccountCA on Order (after update) {    
+	set<Id> orderAccountIds = new set<Id>(); 
     for(integer i=0; i< trigger.new.size(); i++){
-        Order newOrder= trigger.new[i];
-       
-        Account acc = [SELECT Id, Chiffre_d_affaire__c FROM Account WHERE Id =:newOrder.AccountId ];
-        acc.Chiffre_d_affaire__c = acc.Chiffre_d_affaire__c + newOrder.TotalAmount;
-        update acc;
+       orderAccountIds.add(trigger.new[i].AccountId); 
     }
+    List<Account> accList = [SELECT Id, Chiffre_d_affaire__c FROM Account WHERE Id IN : orderAccountIds];    
+    for (Account acc : accList) {       
+        for (Order odr : trigger.New) {
+        	if (odr.AccountId == acc.Id) {
+                for (Order oldOrder : trigger.Old) {
+                    if (oldOrder.AccountId == odr.AccountId) {
+                        acc.Chiffre_d_affaire__c = acc.Chiffre_d_affaire__c + odr.TotalAmount - oldOrder.TotalAmount;
+                    }
+                }
+            }
+        }
+    }
+    update accList;
 }
