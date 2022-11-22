@@ -1,27 +1,34 @@
 @isTest
 private class testUpdateAccountCA {
-    @isTest static void test() {
-        Account acc1 = new Account(Name = 'Test Account 1');
-        insert acc1;
-
-        Product2 pd1 = new Product2(Name = 'Chemise Verte longue XYX', Family = 'Chemise');
-        Insert pd1;
+    @isTest
+    public static void verifyThatSalesRevenueIsEqualToTotalAmountOfAnOrder() {
+        Account account = new Account(Name = 'Test Account 1');
+        insert account;
+        
+        Product2 product = new Product2(Name = 'Chemise Verte longue XYX', Family = 'Chemise');
+        Insert product;
  
         //Create the PricebookEntry
-        PricebookEntry pbe = new PricebookEntry(
+        PricebookEntry priceBookEntry = new PricebookEntry(
             Pricebook2Id = Test.getStandardPricebookId(),
-            Product2Id = pd1.Id,
+            Product2Id = product.Id,
             UnitPrice = 1020,
             IsActive = true
         );
-        Insert pbe;
+        Insert priceBookEntry;
 
-        Order o1 = new Order(AccountId = acc1.Id);
-        insert o1;
+        Order order = new Order(AccountId = account.Id,EffectiveDate = System.today(), Status = 'Draft',Pricebook2Id = Test.getStandardPricebookId());
+        insert order;
 
-        OrderItem oi1 = new OrderItem (OrderId = o1.Id, PricebookEntryId = pbe.Id, Quantity=10, UnitPrice = 150);
-        insert oi1;
-        OrderItem oi2 = new OrderItem (OrderId = o1.Id, PricebookEntryId = pbe.Id, Quantity=20, UnitPrice = 1000);
-        insert oi2;        
+        OrderItem orderItem1 = new OrderItem (OrderId = order.Id, PricebookEntryId = priceBookEntry.Id, Quantity=10, UnitPrice = 150);
+        insert orderItem1;
+        OrderItem orderItem2 = new OrderItem (OrderId = order.Id, PricebookEntryId = priceBookEntry.Id, Quantity=20, UnitPrice = 1000);
+        insert orderItem2; 
+        
+        Test.StartTest();
+        update order;
+        Test.StopTest();
+        Account updatedAccount = [SELECT Id, Chiffre_d_affaire__c FROM Account WHERE Name='Test Account 1'];        
+        System.AssertEquals(21500.00,updatedAccount.Chiffre_d_affaire__c);
     }
 }
