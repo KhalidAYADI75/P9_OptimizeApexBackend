@@ -1,6 +1,6 @@
 //replace trigger UpdateAccountCA.trigger
 public class AccountSalesCalculation {
-    public void salesCalculation(list<Order> OrderList) {
+    public static Set<Account> salesRevenueCalculation(list<Order> OrderList) {
         set<Id> orderAccountIds = new set<Id>(); 
         for(integer i=0; i< OrderList.size(); i++){
         orderAccountIds.add(OrderList[i].AccountId); 
@@ -13,7 +13,6 @@ public class AccountSalesCalculation {
                     accountOrder.Chiffre_d_affaire__c = accountOrder.Chiffre_d_affaire__c + odr.TotalAmount;
                 }
             }
-        
-        update accMap.values();
+        return accMap.values();
     }
 }

@@ -4,7 +4,7 @@ private class TestBatchAccountWithOrderSalesCalculation {
         Account account = TestDataFactory.createAccount('Test Account 1');
         Product2 product = TestDataFactory.createProduct('Chemise Verte longue XYX', 'Chemise');
  		PriceBookEntry priceBookEntry = TestDataFactory.createPriceBookEntry(product);
-		Order order = TestDataFactory.createOrder(account);        
+		Order order = TestDataFactory.createOrder(account.Id);        
         TestDataFactory.createOrderItem(order, priceBookEntry, 10, 150.00);
 		TestDataFactory.createOrderItem(order, priceBookEntry, 20, 1000.00);
     }

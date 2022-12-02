@@ -1,7 +1,10 @@
 trigger OrderTriggerHandler on Order (before update, after update) {
+    UnitOfWork unitOfWork = new UnitOfWork();
     if (trigger.isBefore) {
-        new OrderAmountCalculation.netAmountCalculation(trigger.new);
+        OrderAmountCalculation.netAmountCalculation(trigger.new);
     } else if (trigger.isAfter) {
-        new AccountSalesCalculation.salesCalculation(trigger.new);
+        Set<Account> accountsToUpdate = AccountSalesCalculation.salesRevenueCalculation(trigger.new);
+        unitOfWork.sObjectToUpdate.addAll(accountsToUpdate);
     }
+    unitOfWork.updateSobject();
 }

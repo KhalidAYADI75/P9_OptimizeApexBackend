@@ -20,12 +20,12 @@ public class TestDataFactory {
         Insert priceBookEntry;
         return priceBookEntry;
     }   
-    public static Order createOrder(Account account) {
-        Order order = new Order(AccountId = account.Id,EffectiveDate = System.today(), Status = 'Draft',Pricebook2Id = Test.getStandardPricebookId());
+    public static Order createOrder(ID accountId) {
+        Order order = new Order(AccountId = accountId,EffectiveDate = System.today(), Status = 'Draft',Pricebook2Id = Test.getStandardPricebookId());
         insert order;
         return order;
     }
-    public static void createOrderItem(Order order , PriceBookEntry priceBookEntry, Integer TotalNumber, decimal Price) {
+    public static OrderItem createOrderItem(Order order , PriceBookEntry priceBookEntry, Integer TotalNumber, decimal Price) {
     	OrderItem orderItem = new OrderItem (
             OrderId = order.Id, 
             PricebookEntryId = priceBookEntry.Id, 
@@ -33,5 +33,6 @@ public class TestDataFactory {
             UnitPrice = Price
         );
         insert orderItem;
+        return orderItem;
     }
 }
