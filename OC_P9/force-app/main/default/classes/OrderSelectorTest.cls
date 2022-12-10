@@ -10,6 +10,6 @@ public class OrderSelectorTest {
     public static void testGetTotalAmountOfAllOrders() {
         Test.StartTest();
         AggregateResult result = OrderSelector.getTotalAmountOfAllOrders();
-        System.AssertNotEquals(null, result);
+        System.AssertNotEquals(null,result);
     }
 }

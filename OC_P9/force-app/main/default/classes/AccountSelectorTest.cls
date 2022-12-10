@@ -23,7 +23,7 @@ public class AccountSelectorTest {
     @isTest
     public static void testGetAccountsWithOrdersHavingStatusOrdered() {
         Test.startTest();
-      	String accountListQuery= AccountSelector.getAccountsWithOrdersHavingStatusOrdered();
+      	String accountListQuery = AccountSelector.getAccountsWithOrdersHavingStatusOrdered();
         Test.StopTest();
         System.AssertNotEquals(null, accountListQuery);
     }
