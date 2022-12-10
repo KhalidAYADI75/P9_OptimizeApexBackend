@@ -5,6 +5,11 @@ public class TestDataFactory {
         insert account;
         return account;
     }
+    public static Account createAccountWithDescription(String accountName, String description) {
+        Account account = new Account(Name = accountName, Description = description);
+        insert account;
+        return account;
+    }
     public static Product2 createProduct(String accountName, String familyName) {
         Product2 product = new Product2(Name = 'Chemise Verte longue XYX', Family = 'Chemise');
         Insert product;
@@ -22,6 +27,17 @@ public class TestDataFactory {
     }   
     public static Order createOrder(ID accountId) {
         Order order = new Order(AccountId = accountId,EffectiveDate = System.today(), Status = 'Draft',Pricebook2Id = Test.getStandardPricebookId());
+        insert order;
+        return order;
+    }
+     public static Order createOrderWithShipmentCost(ID accountId, Decimal ShipmentCost) {
+        Order order = new Order(
+            AccountId = accountId,
+            ShipmentCost__c = ShipmentCost,
+            EffectiveDate = System.today(), 
+            Status = 'Draft',
+            Pricebook2Id = Test.getStandardPricebookId()
+            );
         insert order;
         return order;
     }
