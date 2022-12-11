@@ -1,9 +1,9 @@
-public without sharing class VFC01_Team {
-    public decimal SumOders{
+//class that calculates the total Amount of all the orders
+public without sharing class MyTeamOrdersController {
+    public decimal SumOrders{
         get{
-			AggregateResult groupedResults = [SELECT SUM(TotalAmount) total FROM Order];
+			AggregateResult groupedResults = OrderSelector.getTotalAmountOfAllOrders();
 			return (decimal)groupedResults.get('total');
-
         }
         set;
     }
