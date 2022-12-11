@@ -1,3 +1,1 @@
-# OpenClassrooms 
-## Project P9 - Optimize Apex Backend
-## Degraded Project
+The final version of this project is in the branch Release/V0
