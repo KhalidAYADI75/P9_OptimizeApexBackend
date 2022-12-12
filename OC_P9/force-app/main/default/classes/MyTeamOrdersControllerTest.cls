@@ -1,7 +1,7 @@
 @isTest
 public class MyTeamOrdersControllerTest {
     @isTest
-    public static void testSumOrders () {
+    public static void testSumForOneOrder () {
         Account newAccount = TestDataFactory.createAccount('New Account');
        	Product2 product = TestDataFactory.createProduct('Chemise Verte longue XYX', 'Chemise');
  		PriceBookEntry priceBookEntry = TestDataFactory.createPriceBookEntry(product);
