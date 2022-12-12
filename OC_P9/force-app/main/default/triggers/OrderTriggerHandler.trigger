@@ -9,5 +9,6 @@ trigger OrderTriggerHandler on Order (before update, after update) {
         List<Account> accountsToUpdate = AccountSalesRevenueCalculation.salesRevenueCalculation(trigger.new);
         unitOfWork.sObjectToUpdate.addAll(accountsToUpdate);
     }
+    
     unitOfWork.updateSobject();
 }
