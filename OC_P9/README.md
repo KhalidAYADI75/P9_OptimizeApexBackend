@@ -1,2 +1,2 @@
-
-The final version of this project is in the branch Release/V1
+La version finale de ce projet se trouve dans la branche Release/V1 .
+## 
